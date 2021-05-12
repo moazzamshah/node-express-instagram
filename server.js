@@ -4,7 +4,7 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 const connectDB = require('./config/db');
 connectDB();
-const hbs = require('hbs');
+const indexRouter = require('./routes/index')
 
 // ========== SETTINGS =======================
 app.use(express.static(__dirname + '/public'));
@@ -15,17 +15,13 @@ app.use(
   })
 );
 
+app.use('/', indexRouter)
 
 
 
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
 
-app.get('/about', (req, res) => {
-  res.render('about')
-})
+
 
 
 
