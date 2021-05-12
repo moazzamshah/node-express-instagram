@@ -1,20 +1,29 @@
 const express = require('express');
 const app = express();
-const dotenv = require('dotenv');
+require('dotenv').config();
+const PORT = process.env.PORT;
+const connectDB = require('./config/db');
+connectDB();
+const hbs = require('hbs');
 
-// LOAD CONFIG
-dotenv.config({path: '.config/config.env'})
+// ========== SETTINGS =======================
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'hbs');
+app.use(
+  express.urlencoded({
+    extended: false,
+  })
+);
 
 
 
 
 
+app.get('/', (req, res) => {
+  res.render('home')
+})
 
 
 
-const port = 3000;
 
-app.get('/', (req, res) => res.send('Hello World!'));
-app.get('/about', (req, res) => res.send(' <h1> About Page </h1> '));
-
-app.listen(port, () => console.log(`Example app listening on port port!`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT} `));
